@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dilip-apps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Dilip1006/k8s-argocd.git
+    targetRevision: HEAD
+    path: dev
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dilip-app
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace: true
+
+  automated:
+    selfHeal: true
+    prune: true
